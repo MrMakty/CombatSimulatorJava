@@ -49,7 +49,11 @@ public class Player {
     //Write methods here
     public void introduction() {
         System.out.println(
-                "\nWelcome hero!\nYour name:\t" + getName() + "\nClass:\t\t" + getPlayerClass() +
-                        "\nHealth:\t\t" + getRemainingHealth() + "/" + getMaxHealth());
+                STR."""
+
+Welcome hero!
+Your name:\t\{getName()}
+Class:\t\t\{getPlayerClass()}
+Health:\t\t\{getRemainingHealth()}/\{getMaxHealth()}""");
     }
 }

@@ -1,6 +1,8 @@
+import java.util.Scanner;
+
 public class Game {
     public void start() {
-
+        Scanner input = new Scanner(System.in);
         String classChoice;
         String playerClass = "";
         int playerHealth = 0;
@@ -9,32 +11,24 @@ public class Game {
 
         System.out.println(Menus.CLASS_MENU);
 
-        while (!classAccepted) {
-            System.out.println("Please enter the number of the class you want to fight as:");
-            classChoice = input.nextLine();  // Read user input
+        System.out.println("Please enter the number of the class you want to fight as:");
 
-            int classChoiceInt = InputUtil.readInt(input, 3);
-            switch(classChoiceInt){
-                case 1: //mage
-                    playerHealth = 50;
-                    playerClass = "Mage";
-                    classAccepted = true;
-                    break;
-                case 2: //warrior
-                    playerHealth = 100;
-                    playerClass = "Warrior";
-                    classAccepted = true;
-                    break;
-                case 3: //ranger
-                    playerHealth = 70;
-                    playerClass = "Ranger";
-                    classAccepted = true;
-                    break;
-                default:
-
-                    System.out.println(Menus.CLASS_MENU);
+        int classChoiceInt = InputUtil.readInt(input, 3);
+        playerClass = switch (classChoiceInt) {
+            case 1 -> {
+                playerHealth = 50;
+                yield "Mage";
             }
-        }
+            case 2 -> {
+                playerHealth = 100;
+                yield "Warrior";
+            }
+            case 3 -> {
+                playerHealth = 70;
+                yield "Ranger";
+            }
+            default -> playerClass;
+        };
 
         System.out.println("Enter username");
 
