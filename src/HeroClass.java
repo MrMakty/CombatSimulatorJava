@@ -1,2 +1,2 @@
-public record HeroClass(String name, int maxHealth, int damagingPower, int armor, int speed) {}
+public record HeroClass(String displayName, int maxHealth, int damagingPower, int armor, int speed, int startingGold) {}
 

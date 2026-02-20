@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class Game {
@@ -7,32 +8,28 @@ public class Game {
         int playerHealth = 0;
         boolean playerFled = false;
 
-        System.out.println(Menus.CLASS_MENU);
+        List<HeroClass> heroClasses = HeroClasses.all();
+
+        for (int i = 0; i < heroClasses.size(); i++) {
+            HeroClass hc = heroClasses.get(i);
+            System.out.println(STR."\{i + 1}: \{hc.displayName()}");
+        }
 
         System.out.println("Please enter the number of the class you want to fight as:");
 
-        int classChoiceInt = InputUtil.readInt(input, 3);
-        playerClass = switch (classChoiceInt) {
-            case 1 -> {
-                playerHealth = 50;
-                yield "Mage";
-            }
-            case 2 -> {
-                playerHealth = 100;
-                yield "Warrior";
-            }
-            case 3 -> {
-                playerHealth = 70;
-                yield "Ranger";
-            }
-            default -> playerClass;
-        };
+        int choice = InputUtil.readInt(input, heroClasses.size());
+        HeroClass chosenClass = heroClasses.get(choice - 1);
 
         System.out.println("Enter username");
 
         String playerName = input.nextLine();  // Read user input
 
-        Character player = new Character(playerName, playerClass, playerHealth);
+        Player player = new Player(
+                playerName,
+                chosenClass.displayName(),
+                chosenClass.maxHealth()
+        );
+
         player.introduction();
 
         System.out.println(Menus.ACTION_MENU);
