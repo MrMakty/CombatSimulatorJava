@@ -3,10 +3,8 @@ import java.util.Scanner;
 public class Game {
     public void start() {
         Scanner input = new Scanner(System.in);
-        String classChoice;
         String playerClass = "";
         int playerHealth = 0;
-        boolean classAccepted = false;
         boolean playerFled = false;
 
         System.out.println(Menus.CLASS_MENU);
@@ -34,7 +32,7 @@ public class Game {
 
         String playerName = input.nextLine();  // Read user input
 
-        Player player = new Player(playerName, playerClass, playerHealth);
+        Character player = new Character(playerName, playerClass, playerHealth);
         player.introduction();
 
         System.out.println(Menus.ACTION_MENU);

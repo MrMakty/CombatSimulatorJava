@@ -1,59 +1,22 @@
-public class Player {
+public class Player extends Character {
+    //Player-specific fields here
+    private int gold;
+//    private XXX inventory
+
+    public Player(String playerName, String playerClass, int playerHealth) {
+        super(playerName, playerClass, playerHealth);
+        this.gold = 0;
+        // player-specific initialization here
+    }
     //Declare fields here
-    private final String name;
-    private final String playerClass;
-    private int maxHealth;
-    private int remainingHealth;
 
     //Write constructure here
-    public Player(String name, String playerClass, int maxHealth) {
-    this.name = name;
-    this.playerClass = playerClass;
-    this.maxHealth = maxHealth;
-    this.remainingHealth = maxHealth;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPlayerClass() {
-        return playerClass;
-    }
-
-    public int getMaxHealth() {
-        return maxHealth;
-    }
-
-    public void setMaxHealth(int maxHealth) {
-        this.maxHealth = maxHealth;
-    }
-
-    public int getRemainingHealth() {
-        return remainingHealth;
-    }
-
-    public void setRemainingHealth(int remainingHealth) {
-        this.remainingHealth = remainingHealth;
-    }
-
-    public void takeDamage(int amount){
-        this.remainingHealth = getRemainingHealth() - amount;
-        System.out.println("You received " + amount + " damage");
-    }
-
-    public void heal(int amount){
-        this.remainingHealth = getRemainingHealth() + amount;
+    public int getGold() {
+        return gold;
     }
 
     //Write methods here
-    public void introduction() {
-        System.out.println(
-                STR."""
-
-Welcome hero!
-Your name:\t\{getName()}
-Class:\t\t\{getPlayerClass()}
-Health:\t\t\{getRemainingHealth()}/\{getMaxHealth()}""");
+    public void addGold(int amount) {
+        gold += amount;
     }
 }
