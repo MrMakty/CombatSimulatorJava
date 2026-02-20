@@ -13,9 +13,9 @@ public class InputUtil {
                 System.out.println("Your input included something beside a number. Please try again.");
                 continue;
             }
-            if (0 >= classChoiceInt || classChoiceInt > maxValue) {
+            if (1 > classChoiceInt || classChoiceInt > maxValue) {
                 // if < 1 or > maxValue → print message and continue
-                System.out.println("Your input was lower then 1 or higher then the max amount of " + maxValue + ". Please try again");
+                System.out.println("Your input was lower than 1 or higher then the max amount of " + maxValue + ". Please try again");
             }
             else{
             // else return number
