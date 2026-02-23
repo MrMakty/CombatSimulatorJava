@@ -1,2 +1,2 @@
-public record EnemyDefinition (String identifier, String name, int maxHealth, int damagingPower, int armor, int speed) {}
+public record EnemyDefinition (String name, String identifier, int maxHealth, int damagingPower, int armor, int speed) {}
 

@@ -41,17 +41,17 @@ public class Game {
 
         System.out.println(Menus.ACTION_MENU);
 
-        while(player.getRemainingHealth() > 0 && !playerFled){
+        while(player.getRemainingHealth() > 0 && !playerFled && enemy.getRemainingHealth() > 0){
             System.out.println("Enter action number");
             int actionInt = InputUtil.readInt(input, 7);  // Read user input
             switch(actionInt){
                 case 1: //Attack
-                    System.out.println("I choose to attack");
                     //When attacking the enemy and player both attack, the speed of both decide which attacks first
                     //Temporary placeholder to check death
-                    System.out.println("The mysterious force dodged your attack");
-                    System.out.println("A mysterious force attacks you");
-                    player.takeDamage(50000);
+                    player.attackCalculator(enemy);
+                    if (enemy.getRemainingHealth() > 0){
+                        enemy.attackCalculator(player);
+                    }
                     break;
                 case 2: //Block
                     System.out.println("I choose to block the next attack");
