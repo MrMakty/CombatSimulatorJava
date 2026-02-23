@@ -3,8 +3,8 @@ public class Player extends Character {
     private int gold;
 //    private XXX inventory
 
-    public Player(String playerName, String playerClass, int playerHealth) {
-        super(playerName, playerClass, playerHealth);
+    public Player(String playerName, String playerClass, int playerHealth, int playerDamagingPower, int playerArmor, int playerSpeed) {
+        super(playerName, playerClass, playerHealth, playerDamagingPower, playerArmor, playerSpeed);
         this.gold = 0;
         // player-specific initialization here
     }

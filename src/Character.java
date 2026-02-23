@@ -12,7 +12,7 @@ public class Character {
 
 
     //Write constructure here
-    public Character(String name, String playerClass, int maxHealth) {
+    public Character(String name, String playerClass, int maxHealth, int damagingPower, int armor, int speed) {
         this.name = name;
         this.creatureClass = playerClass;
         this.maxHealth = maxHealth;

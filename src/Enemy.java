@@ -1,17 +1,3 @@
 public class Enemy extends Character {
-    //Enemy-specific fields here
-
-    public Enemy(String enemyName, String enemyClass, int enemyHealth) {
-        super(enemyName, enemyClass, enemyHealth);
-        // enemy-specific initialization here
+    public Enemy(EnemyDefinition def) { super(def.identifier(), def.name(), def.maxHealth(), def.damagingPower(), def.armor(), def.speed());}
     }
-    //Declare fields here
-
-
-    //Write constructure here
-
-
-    //Write methods here
-
-
-}

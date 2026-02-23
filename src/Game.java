@@ -26,8 +26,16 @@ public class Game {
         Player player = new Player(
                 playerName,
                 chosenClass.displayName(),
-                chosenClass.maxHealth()
+                chosenClass.maxHealth(),
+                chosenClass.damagingPower(),
+                chosenClass.armor(),
+                chosenClass.speed()
         );
+
+        List<EnemyDefinition> enemies = EnemyDefinitions.all();
+        EnemyDefinition def = enemies.get(2);
+        Enemy enemy = new Enemy(def);
+        System.out.println(enemy.getName());
 
         player.introduction();
 
