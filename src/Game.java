@@ -35,15 +35,7 @@ public class Game {
 
         while(player.getRemainingHealth() > 0 && !playerFled){
             System.out.println("Enter action number");
-            String actionChoice = input.nextLine();  // Read user input
-            int actionInt;
-            try {
-                actionInt = Integer.parseInt(actionChoice);
-            }
-            catch(NumberFormatException e) {
-                System.out.println("Your input was invalid. Please try again");
-                continue;
-            }
+            int actionInt = InputUtil.readInt(input, 7);  // Read user input
             switch(actionInt){
                 case 1: //Attack
                     System.out.println("I choose to attack");
@@ -58,18 +50,22 @@ public class Game {
                     //Either dubbel armor or halve damage. I think halve damage is easier to do as armor might change during the game as statuses will be implemented
                     break;
                 case 3: //Ability
-                    System.out.println("I choose to use an ability");
+                    System.out.println("I choose to use ability 1");
                     //The first ability of the class
                     break;
-                case 4: //Item
-                    System.out.println("I choose to use an item");
+                case 4: //Ability2
+                    System.out.println("I choose to use ability 2");
                     //The second ability of the class
                     break;
-                case 5: //Analyze
+                case 5: //Item
+                    System.out.println("I choose to use an item");
+                    //Use an item the player has in their inventory
+                    break;
+                case 6: //Analyze
                     System.out.println("I choose to analyze my opponent");
                     //Analyze the enemy to see their stats (armor, base attack and abilities
                     break;
-                case 6: //Flee
+                case 7: //Flee
                     System.out.println("I choose to try and flee");
                     //Attempt to flee. This will be a percentage depending on the speed of the enemy and the player
                     playerFled = true;

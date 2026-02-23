@@ -3,9 +3,10 @@ public class Menus {
                 \nDifferent actions:
                     1:\tAttack
                     2:\tBlock
-                    3:\tAbility
-                    4:\tItem
-                    5:\tAnalyze
-                    6:\tFlee
+                    3:\tAbility1
+                    4:\tAbility2
+                    5:\tItem
+                    6:\tAnalyze
+                    7:\tFlee
                 """;
 }
