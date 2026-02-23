@@ -33,7 +33,7 @@ public class Game {
         );
 
         List<EnemyDefinition> enemies = EnemyDefinitions.all();
-        EnemyDefinition def = enemies.get(2);
+        EnemyDefinition def = enemies.get(1);
         Enemy enemy = new Enemy(def);
         System.out.println(enemy.getName());
 
@@ -47,10 +47,20 @@ public class Game {
             switch(actionInt){
                 case 1: //Attack
                     //When attacking the enemy and player both attack, the speed of both decide which attacks first
-                    //Temporary placeholder to check death
-                    player.attackCalculator(enemy);
-                    if (enemy.getRemainingHealth() > 0){
-                        enemy.attackCalculator(player);
+                    if (player.getSpeed() < enemy.getSpeed()){
+                        enemy.attack(player);
+                        if (player.getRemainingHealth() > 0){
+                            player.attack(enemy);
+                        }
+                    } else {
+                        player.attack(enemy);
+                        if (enemy.getRemainingHealth() > 0) {
+                            enemy.attack(player);
+                        }
+                    }
+                    if (player.getRemainingHealth() > 0 && enemy.getRemainingHealth() > 0) {
+                        System.out.println(STR."\n\{player.getName()} has \{player.getRemainingHealth()}/\{player.getMaxHealth()} health left");
+                        System.out.println(STR."\{enemy.getName()} has \{enemy.getRemainingHealth()}/\{enemy.getMaxHealth()} health left\n");
                     }
                     break;
                 case 2: //Block

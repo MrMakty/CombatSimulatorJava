@@ -108,7 +108,7 @@ Class:\t\t\{getCreatureClass()}
 Health:\t\t\{getRemainingHealth()}/\{getMaxHealth()}""");
     }
 
-    public void attackCalculator(Character defender) {
+    public void attack(Character defender) {
         int hitNumber = (int) (Math.random() * 100);
         if (hitNumber < 5) {
             System.out.println(STR."\{this.getName()}'s attack missed!");
@@ -119,36 +119,33 @@ Health:\t\t\{getRemainingHealth()}/\{getMaxHealth()}""");
             System.out.println(STR."\{this.getName()}'s attack hit normally!");
             takeDamage(defender);
         }
-        if (defender.getRemainingHealth() > 0) {
-            System.out.println(STR."\{defender.getName()} has \{defender.getRemainingHealth()}/\{defender.getMaxHealth()} health left\n");
-        } else {
+        if (defender.getRemainingHealth() < 0) {
             System.out.println(STR."\{defender.getName()} was knocked out");
         }
     }
     private void takeDamage(Character defender) {
         int damageRoll = ThreadLocalRandom.current().nextInt(-5, 6);
-//        System.out.println(damageRoll);
         int damageAmount = this.getDamagingPower() - defender.getArmor() + damageRoll;
         if (damageAmount < 1) {
             System.out.println(STR."\{defender.getName()} blocked all damage!");
         } else {
-            healthClamper(defender, damageAmount);
-            defender.remainingHealth = defender.getRemainingHealth() - damageAmount ;
+            applyDamage(damageAmount);
         }
     }
 
     private void takeCriticalDamage(Character defender){
-        defender.remainingHealth = defender.getRemainingHealth() - this.getDamagingPower() * 2;
         int damageAmount = this.getDamagingPower() * 2;
-        healthClamper(defender, damageAmount);
+        applyDamage(damageAmount);
     }
 
-    private void healthClamper(Character defender, int damageAmount){
-        int healthBefore = defender.getRemainingHealth();
-        if (defender.getRemainingHealth() - damageAmount < 0) {
+    private void applyDamage(int damageAmount){
+        int healthBefore = this.getRemainingHealth();
+        if (this.getRemainingHealth() - damageAmount <= 0) {
             damageAmount = healthBefore;
-            defender.remainingHealth = 0;
-            System.out.println(STR."\{defender.getName()} received \{damageAmount} damage");
+            this.remainingHealth = 0;
+        } else {
+            this.remainingHealth = this.getRemainingHealth() - damageAmount;
         }
+        System.out.println(STR."\{this.getName()} received \{damageAmount} damage");
     }
 }
