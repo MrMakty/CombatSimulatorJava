@@ -70,9 +70,6 @@ public class Game {
                     //Attempt to flee. This will be a percentage depending on the speed of the enemy and the player
                     playerFled = true;
                     break;
-                default:
-                    System.out.println("Your input was invalid. Please try again");
-                    System.out.println(Menus.ACTION_MENU);
             }
         }
     }
