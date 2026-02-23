@@ -4,8 +4,6 @@ import java.util.Scanner;
 public class Game {
     public void start() {
         Scanner input = new Scanner(System.in);
-        String playerClass = "";
-        int playerHealth = 0;
         boolean playerFled = false;
 
         List<HeroClass> heroClasses = HeroClasses.all();
@@ -20,9 +18,10 @@ public class Game {
         int choice = InputUtil.readInt(input, heroClasses.size());
         HeroClass chosenClass = heroClasses.get(choice - 1);
 
-        System.out.println("Enter username");
+//        System.out.println("Enter username");
 
-        String playerName = input.nextLine();  // Read user input
+        String playerName = "Makty"; //Temporary placeholder to make testing quicker
+//        String playerName = input.nextLine();  // Read user input
 
         Player player = new Player(
                 playerName,
@@ -48,23 +47,31 @@ public class Game {
             switch(actionInt){
                 case 1: //Attack
                     System.out.println("I choose to attack");
+                    //When attacking the enemy and player both attack, the speed of both decide which attacks first
+                    //Temporary placeholder to check death
+                    System.out.println("The mysterious force dodged your attack");
                     System.out.println("A mysterious force attacks you");
                     player.takeDamage(50000);
                     break;
                 case 2: //Block
                     System.out.println("I choose to block the next attack");
+                    //Either dubbel armor or halve damage. I think halve damage is easier to do as armor might change during the game as statuses will be implemented
                     break;
                 case 3: //Ability
                     System.out.println("I choose to use an ability");
+                    //The first ability of the class
                     break;
                 case 4: //Item
                     System.out.println("I choose to use an item");
+                    //The second ability of the class
                     break;
                 case 5: //Analyze
                     System.out.println("I choose to analyze my opponent");
+                    //Analyze the enemy to see their stats (armor, base attack and abilities
                     break;
                 case 6: //Flee
                     System.out.println("I choose to try and flee");
+                    //Attempt to flee. This will be a percentage depending on the speed of the enemy and the player
                     playerFled = true;
                     break;
                 default:
