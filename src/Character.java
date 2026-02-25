@@ -11,6 +11,7 @@ public class Character {
     private String ability1;
     private String ability2;
     private int speed;
+    private boolean blocking;
 
 
     //Write constructure here
@@ -114,7 +115,7 @@ Health:\t\t\{getRemainingHealth()}/\{getMaxHealth()}""");
             System.out.println(STR."\{this.getName()}'s attack missed!");
         } else if (hitNumber >= 95) {
             System.out.println(STR."\{this.getName()}'s attack critically hit!");
-            takeCriticalDamage(defender);
+            defender.takeCriticalDamage();
         } else {
             System.out.println(STR."\{this.getName()}'s attack hit normally!");
             takeDamage(defender);
@@ -123,23 +124,29 @@ Health:\t\t\{getRemainingHealth()}/\{getMaxHealth()}""");
             System.out.println(STR."\{defender.getName()} was knocked out");
         }
     }
+
     private void takeDamage(Character defender) {
         int damageRoll = ThreadLocalRandom.current().nextInt(-5, 6);
         int damageAmount = this.getDamagingPower() - defender.getArmor() + damageRoll;
         if (damageAmount < 1) {
             System.out.println(STR."\{defender.getName()} blocked all damage!");
         } else {
-            applyDamage(damageAmount);
+            defender.applyDamage(damageAmount);
         }
     }
 
-    private void takeCriticalDamage(Character defender){
+    private void takeCriticalDamage(){
         int damageAmount = this.getDamagingPower() * 2;
-        applyDamage(damageAmount);
+        this.applyDamage(damageAmount);
     }
 
     private void applyDamage(int damageAmount){
         int healthBefore = this.getRemainingHealth();
+        if (this.blocking){
+            damageAmount = damageAmount / 2;
+            System.out.println(STR."\{this.name} blocked halve of the damage");
+            this.blocking = false;
+        }
         if (this.getRemainingHealth() - damageAmount <= 0) {
             damageAmount = healthBefore;
             this.remainingHealth = 0;
@@ -147,5 +154,20 @@ Health:\t\t\{getRemainingHealth()}/\{getMaxHealth()}""");
             this.remainingHealth = this.getRemainingHealth() - damageAmount;
         }
         System.out.println(STR."\{this.getName()} received \{damageAmount} damage");
+    }
+
+    public void startsBlocking() {
+        this.blocking = true;
+    }
+
+    public void stopsBlocking() {
+        this.blocking = false;
+    }
+
+    public void healthDisplay(Character enemy){
+        if (this.getRemainingHealth() > 0 && enemy.getRemainingHealth() > 0) {
+            System.out.println(STR."\n\{this.getName()} has \{this.getRemainingHealth()}/\{this.getMaxHealth()} health left");
+            System.out.println(STR."\{enemy.getName()} has \{enemy.getRemainingHealth()}/\{enemy.getMaxHealth()} health left\n");
+        }
     }
 }

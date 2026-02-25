@@ -39,9 +39,9 @@ public class Game {
 
         player.introduction();
 
-        System.out.println(Menus.ACTION_MENU);
 
         while(player.getRemainingHealth() > 0 && !playerFled && enemy.getRemainingHealth() > 0){
+            System.out.println(Menus.ACTION_MENU);
             System.out.println("Enter action number");
             int actionInt = InputUtil.readInt(input, 7);  // Read user input
             switch(actionInt){
@@ -49,6 +49,7 @@ public class Game {
                     //When attacking the enemy and player both attack, the speed of both decide which attacks first
                     if (player.getSpeed() < enemy.getSpeed()){
                         enemy.attack(player);
+                        player.stopsBlocking();
                         if (player.getRemainingHealth() > 0){
                             player.attack(enemy);
                         }
@@ -56,16 +57,16 @@ public class Game {
                         player.attack(enemy);
                         if (enemy.getRemainingHealth() > 0) {
                             enemy.attack(player);
+                            player.stopsBlocking();
                         }
                     }
-                    if (player.getRemainingHealth() > 0 && enemy.getRemainingHealth() > 0) {
-                        System.out.println(STR."\n\{player.getName()} has \{player.getRemainingHealth()}/\{player.getMaxHealth()} health left");
-                        System.out.println(STR."\{enemy.getName()} has \{enemy.getRemainingHealth()}/\{enemy.getMaxHealth()} health left\n");
-                    }
+                    player.healthDisplay(enemy);
                     break;
                 case 2: //Block
+                    player.startsBlocking();
                     System.out.println("I choose to block the next attack");
-                    //Either dubbel armor or halve damage. I think halve damage is easier to do as armor might change during the game as statuses will be implemented
+                    enemy.attack(player);
+                    player.healthDisplay(enemy);
                     break;
                 case 3: //Ability
                     System.out.println("I choose to use ability 1");
