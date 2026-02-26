@@ -49,7 +49,7 @@ public class Game {
                     //When attacking the enemy and player both attack, the speed of both decide which attacks first
                     if (player.getSpeed() < enemy.getSpeed()){
                         enemy.attack(player);
-                        player.stopsBlocking();
+                        player.stopBlocking();
                         if (player.getRemainingHealth() > 0){
                             player.attack(enemy);
                         }
@@ -57,16 +57,16 @@ public class Game {
                         player.attack(enemy);
                         if (enemy.getRemainingHealth() > 0) {
                             enemy.attack(player);
-                            player.stopsBlocking();
+                            player.stopBlocking();
                         }
                     }
-                    player.healthDisplay(enemy);
+                    healthDisplay(enemy, player);
                     break;
                 case 2: //Block
-                    player.startsBlocking();
+                    player.startBlocking();
                     System.out.println("I choose to block the next attack");
                     enemy.attack(player);
-                    player.healthDisplay(enemy);
+                    healthDisplay(enemy, player);
                     break;
                 case 3: //Ability
                     System.out.println("I choose to use ability 1");
@@ -90,6 +90,12 @@ public class Game {
                     playerFled = true;
                     break;
             }
+        }
+    }
+    private void healthDisplay(Character enemy, Character player){
+        if (player.getRemainingHealth() > 0 && enemy.getRemainingHealth() > 0) {
+            System.out.println(STR."\n\{player.getName()} has \{player.getRemainingHealth()}/\{player.getMaxHealth()} health left");
+            System.out.println(STR."\{enemy.getName()} has \{enemy.getRemainingHealth()}/\{enemy.getMaxHealth()} health left\n");
         }
     }
 }

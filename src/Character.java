@@ -115,12 +115,12 @@ Health:\t\t\{getRemainingHealth()}/\{getMaxHealth()}""");
             System.out.println(STR."\{this.getName()}'s attack missed!");
         } else if (hitNumber >= 95) {
             System.out.println(STR."\{this.getName()}'s attack critically hit!");
-            defender.takeCriticalDamage();
+            this.takeCriticalDamage(defender);
         } else {
             System.out.println(STR."\{this.getName()}'s attack hit normally!");
             takeDamage(defender);
         }
-        if (defender.getRemainingHealth() < 0) {
+        if (defender.getRemainingHealth() <= 0) {
             System.out.println(STR."\{defender.getName()} was knocked out");
         }
     }
@@ -129,15 +129,15 @@ Health:\t\t\{getRemainingHealth()}/\{getMaxHealth()}""");
         int damageRoll = ThreadLocalRandom.current().nextInt(-5, 6);
         int damageAmount = this.getDamagingPower() - defender.getArmor() + damageRoll;
         if (damageAmount < 1) {
-            System.out.println(STR."\{defender.getName()} blocked all damage!");
+            System.out.println(STR."\{defender.getName()} wasn't damaged because of thier armor!");
         } else {
             defender.applyDamage(damageAmount);
         }
     }
 
-    private void takeCriticalDamage(){
+    private void takeCriticalDamage(Character defender){
         int damageAmount = this.getDamagingPower() * 2;
-        this.applyDamage(damageAmount);
+        defender.applyDamage(damageAmount);
     }
 
     private void applyDamage(int damageAmount){
@@ -156,18 +156,11 @@ Health:\t\t\{getRemainingHealth()}/\{getMaxHealth()}""");
         System.out.println(STR."\{this.getName()} received \{damageAmount} damage");
     }
 
-    public void startsBlocking() {
+    public void startBlocking() {
         this.blocking = true;
     }
 
-    public void stopsBlocking() {
+    public void stopBlocking() {
         this.blocking = false;
-    }
-
-    public void healthDisplay(Character enemy){
-        if (this.getRemainingHealth() > 0 && enemy.getRemainingHealth() > 0) {
-            System.out.println(STR."\n\{this.getName()} has \{this.getRemainingHealth()}/\{this.getMaxHealth()} health left");
-            System.out.println(STR."\{enemy.getName()} has \{enemy.getRemainingHealth()}/\{enemy.getMaxHealth()} health left\n");
-        }
     }
 }
