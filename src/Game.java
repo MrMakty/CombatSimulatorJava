@@ -39,57 +39,19 @@ public class Game {
 
         player.introduction();
 
-
         while(player.getRemainingHealth() > 0 && !playerFled && enemy.getRemainingHealth() > 0){
-            System.out.println(Menus.ACTION_MENU);
-            System.out.println("Enter action number");
-            int actionInt = InputUtil.readInt(input, 7);  // Read user input
-            switch(actionInt){
-                case 1: //Attack
-                    //When attacking the enemy and player both attack, the speed of both decide which attacks first
-                    if (player.getSpeed() < enemy.getSpeed()){
-                        enemy.attack(player);
-                        player.stopBlocking();
-                        if (player.getRemainingHealth() > 0){
-                            player.attack(enemy);
-                        }
-                    } else {
-                        player.attack(enemy);
-                        if (enemy.getRemainingHealth() > 0) {
-                            enemy.attack(player);
-                            player.stopBlocking();
-                        }
-                    }
-                    healthDisplay(enemy, player);
-                    break;
-                case 2: //Block
-                    player.startBlocking();
-                    System.out.println("I choose to block the next attack");
-                    enemy.attack(player);
-                    healthDisplay(enemy, player);
-                    break;
-                case 3: //Ability
-                    System.out.println("I choose to use ability 1");
-                    //The first ability of the class
-                    break;
-                case 4: //Ability2
-                    System.out.println("I choose to use ability 2");
-                    //The second ability of the class
-                    break;
-                case 5: //Item
-                    System.out.println("I choose to use an item");
-                    //Use an item the player has in their inventory
-                    break;
-                case 6: //Analyze
-                    System.out.println("I choose to analyze my opponent");
-                    //Analyze the enemy to see their stats (armor, base attack and abilities
-                    break;
-                case 7: //Flee
-                    System.out.println("I choose to try and flee");
-                    //Attempt to flee. This will be a percentage depending on the speed of the enemy and the player
-                    playerFled = true;
-                    break;
+            if (player.getSpeed() < enemy.getSpeed()){
+                this.enemyTurn(enemy, player);
+                if (player.getRemainingHealth() > 0) {
+                    playerFled = this.playerTurn(player, enemy);
+                }
+            } else {
+                playerFled = this.playerTurn(player, enemy);
+                if (enemy.getRemainingHealth() > 0) {
+                    this.enemyTurn(enemy, player);
+                }
             }
+            healthDisplay(enemy, player);
         }
     }
     private void healthDisplay(Character enemy, Character player){
@@ -98,4 +60,55 @@ public class Game {
             System.out.println(STR."\{enemy.getName()} has \{enemy.getRemainingHealth()}/\{enemy.getMaxHealth()} health left\n");
         }
     }
+
+    private boolean playerTurn(Character player, Character enemy){
+        Scanner input = new Scanner(System.in);
+        System.out.println(Menus.ACTION_MENU);
+        System.out.println("Enter action number");
+        int actionInt = InputUtil.readInt(input, 7);  // Read user input
+        switch(actionInt){
+            case 1: //Attack
+                player.attack(enemy);
+                enemy.stopBlocking();
+                return false;
+            case 2: //Block
+                player.startBlocking();
+                System.out.println("I choose to block the next attack");
+                return false;
+            case 3: //Ability
+                System.out.println("I choose to use ability 1");
+                //The first ability of the class
+                return false;
+            case 4: //Ability2
+                System.out.println("I choose to use ability 2");
+                //The second ability of the class
+                return false;
+            case 5: //Item
+                System.out.println("I choose to use an item");
+                //Use an item the player has in their inventory
+                return false;
+            case 6: //Analyze
+                System.out.println("I choose to analyze my opponent");
+                //Analyze the enemy to see their stats (armor, base attack and abilities
+                return false;
+            case 7: //Flee
+                System.out.println("I choose to try and flee");
+                //Attempt to flee. This will be a percentage depending on the speed of the enemy and the player
+                return true;
+        }
+        return false;
+    }
+
+    private void enemyTurn(Enemy enemy, Character player){
+        //enemy turn goes here
+        Enemy.Action action = enemy.chooseAction(enemy, player);
+        switch(action){
+            case ATTACK -> enemy.attack(player);
+            case BLOCK -> enemy.startBlocking();
+//            case ABILITY1 ->
+//            case ABILITY2 ->
+//            case FLEE ->
+        }
+    }
+
 }
